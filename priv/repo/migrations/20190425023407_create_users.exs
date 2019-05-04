@@ -3,12 +3,13 @@ defmodule Bank.Repo.Migrations.CreateUsers do
 
   def change do
     create table(:users) do
-      add :name, :string
-      add :email, :string
-      add :encrypted_password, :string
+      add(:name, :string)
+      add(:email, :string)
+      add(:encrypted_password, :string)
 
       timestamps()
     end
 
+    create(index("users", :email, unique: true))
   end
 end

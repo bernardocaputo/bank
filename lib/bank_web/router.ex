@@ -1,17 +1,17 @@
 defmodule BankWeb.Router do
   use BankWeb, :router
 
-  forward(
-    "/graphiql",
-    Absinthe.Plug.GraphiQL,
-    schema: GraphqlWeb.Schema
-  )
-
-  pipeline :api do
-    plug(:accepts, ["json"])
+  pipeline :graphql do
+    plug(Guardian.Plug.VerifyHeader, realm: "Bearer")
+    plug(Guardian.Plug.LoadResource)
+    plug(Bank.Auth.Context)
   end
 
-  scope "/api", BankWeb do
-    pipe_through(:api)
+  forward("/graphiql", Absinthe.Plug.GraphiQL, schema: GraphqlWeb.Schema)
+
+  scope "/" do
+    pipe_through(:graphql)
+
+    forward("/graphql", Absinthe.Plug, schema: GraphqlWeb.Schema)
   end
 end
