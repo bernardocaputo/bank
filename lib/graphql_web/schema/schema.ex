@@ -30,13 +30,16 @@ defmodule GraphqlWeb.Schema do
     end
   end
 
-  def format_changeset(changeset) do
+  def format_changeset(%Ecto.Changeset{errors: []} = _changeset),
+    do: {:error, "email already registered"}
+
+  def format_changeset(%Ecto.Changeset{errors: errors} = _changeset) do
     # {:error, [email: {"has already been taken", []}]}
     {key, {value, context}} =
-      changeset.errors
+      errors
       |> List.first()
 
-    {k, v} = context |> List.last()
+    {_k, v} = context |> List.last()
 
     {:error, "#{key} #{value} | count value: #{v}"}
   end
