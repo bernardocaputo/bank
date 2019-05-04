@@ -14,8 +14,7 @@ config :bank, BankWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "2J+Ts/AFYDWEohndl7NPpRuV047edkrXL2zKa9KFfAG3D10LCPxhv4c/6S7l3qbJ",
   render_errors: [view: BankWeb.ErrorView, accepts: ~w(json)],
-  pubsub: [name: Bank.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Bank.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -24,4 +23,12 @@ config :logger, :console,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"
+
+config :guardian, Guardian,
+  issuer: "bank",
+  ttl: {1, :days},
+  allowed_drift: 30000,
+  secret_key:
+    "Jy07+9sloWXqJBVMeUt+GazJy07+9sloWXqJBVSOQ+73XqeG5K2oTOKT1aPDKANEYwCpKQocow+XPjWMeUt+Gaz",
+  serializer: Bank.Auth.GuardianSerializer

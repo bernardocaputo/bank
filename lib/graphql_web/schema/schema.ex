@@ -5,7 +5,7 @@ defmodule GraphqlWeb.Schema do
 
   query do
     field :users, list_of(:user) do
-      resolve(fn _params, _info ->
+      resolve(fn _params, %{context: %{current_user: user}} ->
         {:ok, Bank.Repo.all(Bank.User)}
       end)
     end
@@ -18,6 +18,13 @@ defmodule GraphqlWeb.Schema do
       arg(:password, non_null(:string))
 
       resolve(handle_errors(&UserResolver.create_user/2))
+    end
+
+    field :login, type: :raw_json do
+      arg(:email, non_null(:string))
+      arg(:password, non_null(:string))
+
+      resolve(&UserResolver.login/2)
     end
   end
 
