@@ -1,6 +1,6 @@
 defmodule Bank.Account do
   alias Bank.Repo
-  alias Bank.User
+  alias Bank.Account.User
 
   def create_user(params) do
     changeset = User.changeset(params)
@@ -9,7 +9,7 @@ defmodule Bank.Account do
       {:ok, user} ->
         {:ok, user}
 
-      {:error, _changeset} ->
+      {:error, changeset} ->
         {:error, changeset}
     end
   end

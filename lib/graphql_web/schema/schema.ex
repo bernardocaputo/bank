@@ -6,7 +6,7 @@ defmodule GraphqlWeb.Schema do
   query do
     field :users, list_of(:user) do
       resolve(fn _params, %{context: %{current_user: user}} ->
-        {:ok, Bank.Repo.all(Bank.User)}
+        {:ok, Bank.Repo.all(Bank.Account.User)}
       end)
     end
   end

@@ -12,5 +12,6 @@ defmodule Bank.Auth.Context do
       user ->
         put_private(conn, :absinthe, %{context: %{current_user: user}})
     end
+    |> IO.inspect()
   end
 end

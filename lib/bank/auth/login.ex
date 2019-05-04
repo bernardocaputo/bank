@@ -1,7 +1,7 @@
 defmodule Bank.Auth.Login do
   import Comeonin.Bcrypt, only: [checkpw: 2]
   alias Bank.Repo
-  alias Bank.User
+  alias Bank.Account.User
 
   def login_with_email_pass(email, given_pass) do
     user = Repo.get_by(User, email: String.downcase(email))
