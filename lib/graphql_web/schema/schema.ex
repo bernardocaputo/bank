@@ -2,11 +2,13 @@ defmodule GraphqlWeb.Schema do
   use Absinthe.Schema
   import_types(GraphqlWeb.Schema.Types)
   alias GraphqlWeb.Resolvers.UserResolver
+  alias GraphqlWeb.Resolvers.BankAccountResolver
+  alias Bank.Repo
 
   query do
     field :users, list_of(:user) do
-      resolve(fn _params, %{context: %{current_user: user}} ->
-        {:ok, Bank.Repo.all(Bank.Account.User)}
+      resolve(fn _params, %{context: %{current_user: _user}} ->
+        {:ok, Repo.all(Bank.Account.User) |> Repo.preload(:bank_account)}
       end)
     end
   end
@@ -26,6 +28,10 @@ defmodule GraphqlWeb.Schema do
 
       resolve(&UserResolver.login/2)
     end
+
+    field :open_bank_account, type: :bank_account do
+      resolve(handle_errors(&BankAccountResolver.open_bank_account/2))
+    end
   end
 
   def handle_errors(fun) do
@@ -41,13 +47,17 @@ defmodule GraphqlWeb.Schema do
     do: {:error, "email already registered"}
 
   def format_changeset(%Ecto.Changeset{errors: errors} = _changeset) do
-    # {:error, [email: {"has already been taken", []}]}
     {key, {value, context}} =
       errors
       |> List.first()
 
-    {_k, v} = context |> List.last()
+    _format_changeset(key, value, context)
+  end
 
+  def _format_changeset(key, value, []), do: {:error, "#{key}: #{value}"}
+
+  def _format_changeset(key, value, context) do
+    {_k, v} = context |> List.last()
     {:error, "#{key} #{value} | count value: #{v}"}
   end
 end
