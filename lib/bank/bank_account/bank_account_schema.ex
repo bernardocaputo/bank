@@ -14,7 +14,8 @@ defmodule Bank.BankAccountSchema do
   def changeset(params) do
     %__MODULE__{}
     |> cast(params, [:user_id, :amount])
-    |> validate_required([:user_id, :amount])
-    |> validate_number(:default_value, equal_to: 1000)
+    |> validate_required([:user_id])
+    |> put_change(:amount, 100_000)
+    |> unique_constraint(:user_id)
   end
 end

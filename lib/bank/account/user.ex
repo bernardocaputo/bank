@@ -1,10 +1,12 @@
 defmodule Bank.Account.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias Bank.BankAccountSchema
 
   schema "users" do
     field(:email, :string)
     field(:encrypted_password, :string)
+    has_one(:bank_account, BankAccountSchema)
     field(:password, :string, virtual: true)
     field(:name, :string)
 

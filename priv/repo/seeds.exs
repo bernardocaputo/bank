@@ -9,10 +9,3 @@
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-
-%Bank.Account.User{
-  name: "Bernardo",
-  email: "bernardocaputo@gmail.com",
-  encrypted_password: "teste"
-}
-|> Bank.Repo.insert!()
