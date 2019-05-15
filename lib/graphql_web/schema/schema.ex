@@ -32,6 +32,11 @@ defmodule GraphqlWeb.Schema do
     field :open_bank_account, type: :bank_account do
       resolve(handle_errors(&BankAccountResolver.open_bank_account/2))
     end
+
+    field :cash_out, type: :bank_account do
+      arg(:value, non_null(:integer))
+      resolve(handle_errors(&BankAccountResolver.cash_out/2))
+    end
   end
 
   def handle_errors(fun) do
@@ -57,7 +62,8 @@ defmodule GraphqlWeb.Schema do
   def _format_changeset(key, value, []), do: {:error, "#{key}: #{value}"}
 
   def _format_changeset(key, value, context) do
-    {_k, v} = context |> List.last()
-    {:error, "#{key} #{value} | count value: #{v}"}
+    {k, v} = context |> List.last()
+
+    {:error, "#{key} #{value} | #{k} value: #{v}"}
   end
 end

@@ -7,4 +7,12 @@ defmodule Bank.BankAccount do
 
     Repo.insert(changeset)
   end
+
+  def cash_out(bank_account, value) do
+    remaining_amount = bank_account.amount - value
+
+    changeset = BankAccountSchema.cash_out_changeset(bank_account, %{amount: remaining_amount})
+
+    Repo.update(changeset)
+  end
 end

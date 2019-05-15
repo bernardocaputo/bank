@@ -18,4 +18,11 @@ defmodule Bank.BankAccountSchema do
     |> put_change(:amount, 100_000)
     |> unique_constraint(:user_id)
   end
+
+  def cash_out_changeset(bank_account, params) do
+    bank_account
+    |> cast(params, [:amount])
+    |> validate_required([:amount])
+    |> validate_number(:amount, greater_than_or_equal_to: 0)
+  end
 end
