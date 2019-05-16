@@ -23,6 +23,10 @@ defmodule Bank.BankAccountSchema do
     bank_account
     |> cast(params, [:amount])
     |> validate_required([:amount])
-    |> validate_number(:amount, greater_than_or_equal_to: 0)
+    |> validate_number(
+      :amount,
+      greater_than_or_equal_to: 0,
+      message: "negative not allowed"
+    )
   end
 end

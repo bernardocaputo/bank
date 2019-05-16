@@ -1,5 +1,6 @@
 defmodule Bank.BankAccount do
   alias Bank.BankAccountSchema
+  alias Bank.CashOutEvent
   alias Bank.Repo
 
   def open_bank_account(user) do
@@ -13,6 +14,22 @@ defmodule Bank.BankAccount do
 
     changeset = BankAccountSchema.cash_out_changeset(bank_account, %{amount: remaining_amount})
 
-    Repo.update(changeset)
+    if changeset.valid? do
+      cash_out_transaction(changeset, bank_account, value)
+    else
+      {:error, changeset}
+    end
+  end
+
+  defp cash_out_transaction(changeset, bank_account, value) do
+    try do
+      Repo.transaction(fn ->
+        CashOutEvent.create_cash_out_event(bank_account, value)
+        Repo.update!(changeset)
+      end)
+    rescue
+      e in Ecto.InvalidChangesetError ->
+        {:error, e.changeset}
+    end
   end
 end
