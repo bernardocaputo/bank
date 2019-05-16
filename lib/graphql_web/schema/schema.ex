@@ -37,6 +37,12 @@ defmodule GraphqlWeb.Schema do
       arg(:value, non_null(:integer))
       resolve(handle_errors(&BankAccountResolver.cash_out/2))
     end
+
+    field :transfer_money, type: :bank_account do
+      arg(:value, non_null(:integer))
+      arg(:receiver_user_id, non_null(:integer))
+      resolve(handle_errors(&BankAccountResolver.transfer_money/2))
+    end
   end
 
   def handle_errors(fun) do

@@ -19,7 +19,7 @@ defmodule Bank.BankAccountSchema do
     |> unique_constraint(:user_id)
   end
 
-  def cash_out_changeset(bank_account, params) do
+  def new_amount_changeset(bank_account, params) do
     bank_account
     |> cast(params, [:amount])
     |> validate_required([:amount])
