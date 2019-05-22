@@ -38,8 +38,16 @@ defmodule Bank.BankAccount do
   def transfer_money(_, _, value) when value <= 0,
     do: {:error, "value cannot be less than or equal to 0"}
 
-  def transfer_money(bank_account, bank_account_receiver, value) do
-    remaining_amount = bank_account.amount - value
+  def transfer_money(sender, receiver, _) when sender == receiver,
+    do: {:error, "you cannot transfer money to yourself"}
+
+  def transfer_money(
+        bank_account = %BankAccountSchema{amount: amount},
+        bank_account_receiver = %BankAccountSchema{},
+        value
+      ) do
+    amount
+    remaining_amount = amount - value
 
     changeset = BankAccountSchema.new_amount_changeset(bank_account, %{amount: remaining_amount})
 
