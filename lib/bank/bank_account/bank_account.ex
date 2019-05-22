@@ -1,6 +1,7 @@
 defmodule Bank.BankAccount do
   alias Bank.BankAccountSchema
   alias Bank.CashOutEvent
+  alias Bank.TransactionEvent
   alias Bank.Repo
 
   def open_bank_account(user) do
@@ -46,7 +47,6 @@ defmodule Bank.BankAccount do
         bank_account_receiver = %BankAccountSchema{},
         value
       ) do
-    amount
     remaining_amount = amount - value
 
     changeset = BankAccountSchema.new_amount_changeset(bank_account, %{amount: remaining_amount})
@@ -65,18 +65,23 @@ defmodule Bank.BankAccount do
       BankAccountSchema.new_amount_changeset(bank_account_receiver, %{amount: new_amount})
 
     if receiver_changeset.valid? do
-      transfer_transaction(changeset, receiver_changeset)
+      transfer_transaction(changeset, receiver_changeset, value)
     else
       {:error, receiver_changeset}
     end
   end
 
-  defp transfer_transaction(changeset, receiver_changeset) do
+  defp transfer_transaction(changeset, receiver_changeset, value) do
     try do
-      Repo.transaction(fn ->
-        Repo.update!(receiver_changeset)
-        Repo.update!(changeset)
-      end)
+      {:ok, from_bank_account} =
+        Repo.transaction(fn ->
+          from_bank_account = Repo.update!(changeset)
+          to_bank_account = Repo.update!(receiver_changeset)
+          TransactionEvent.create_transaction_event(from_bank_account, to_bank_account, value)
+          from_bank_account
+        end)
+
+      {:ok, from_bank_account |> Repo.preload(:user)}
     rescue
       e in Ecto.InvalidChangesetError ->
         {:error, e.changeset}
