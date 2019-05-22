@@ -58,8 +58,12 @@ defmodule Bank.BankAccount do
     end
   end
 
-  def _transfer_money(changeset, bank_account_receiver, value) do
-    new_amount = bank_account_receiver.amount + value
+  def _transfer_money(
+        changeset,
+        bank_account_receiver = %BankAccountSchema{amount: amount},
+        value
+      ) do
+    new_amount = amount + value
 
     receiver_changeset =
       BankAccountSchema.new_amount_changeset(bank_account_receiver, %{amount: new_amount})
