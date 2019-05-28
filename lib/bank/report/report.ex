@@ -1,6 +1,7 @@
 defmodule Bank.Report do
   import Ecto.Query
   alias Bank.Repo
+  alias Bank.Exporter
   alias Bank.TransactionEventSchema
 
   def daily_transaction_report() do
@@ -64,27 +65,30 @@ defmodule Bank.Report do
   defp parse_result([], _), do: {:error, "no transactions found"}
 
   defp parse_result(result, type) do
-    case type do
-      :day ->
-        result
-        |> Enum.map(fn %{day: {{year, month, day}, _}} = x ->
-          x |> Map.put(:day, "#{year}-#{month}-#{day}")
-        end)
+    data =
+      case type do
+        :day ->
+          result
+          |> Enum.map(fn %{day: {{year, month, day}, _}} = x ->
+            x |> Map.put(:day, "#{year}-#{month}-#{day}")
+          end)
 
-      :month ->
-        result
-        |> Enum.map(fn %{month: {{year, month, _}, _}} = x ->
-          x |> Map.put(:month, "#{year}-#{month}")
-        end)
+        :month ->
+          result
+          |> Enum.map(fn %{month: {{year, month, _}, _}} = x ->
+            x |> Map.put(:month, "#{year}-#{month}")
+          end)
 
-      :year ->
-        result
-        |> Enum.map(fn %{year: {{year, _, _}, _}} = x ->
-          x |> Map.put(:year, "#{year}")
-        end)
+        :year ->
+          result
+          |> Enum.map(fn %{year: {{year, _, _}, _}} = x ->
+            x |> Map.put(:year, "#{year}")
+          end)
 
-      :total ->
-        result
-    end
+        :total ->
+          result
+      end
+
+    data |> Exporter.create_report(type |> Atom.to_string())
   end
 end

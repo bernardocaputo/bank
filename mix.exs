@@ -20,7 +20,7 @@ defmodule Bank.Mixfile do
   def application do
     [
       mod: {Bank.Application, []},
-      extra_applications: [:logger, :runtime_tools, :absinthe_plug, :timex]
+      extra_applications: [:logger, :runtime_tools, :absinthe_plug, :timex, :csv]
     ]
   end
 
@@ -40,6 +40,7 @@ defmodule Bank.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
+      {:csv, "~> 2.3"},
       {:plug_cowboy, "~> 1.0"},
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
