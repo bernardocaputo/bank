@@ -20,7 +20,7 @@ defmodule Bank.Mixfile do
   def application do
     [
       mod: {Bank.Application, []},
-      extra_applications: [:logger, :runtime_tools, :absinthe_plug]
+      extra_applications: [:logger, :runtime_tools, :absinthe_plug, :timex]
     ]
   end
 
@@ -34,6 +34,7 @@ defmodule Bank.Mixfile do
   defp deps do
     [
       {:phoenix, "~> 1.3.0"},
+      {:timex, "~> 3.5"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
