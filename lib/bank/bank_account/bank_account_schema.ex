@@ -3,6 +3,11 @@ defmodule Bank.BankAccountSchema do
   import Ecto.Changeset
   alias Bank.Account.User
 
+  @type t :: %__MODULE__{
+          user_id: integer(),
+          amount: integer()
+        }
+
   schema "bank_accounts" do
     belongs_to(:user, User)
     field(:amount, :integer)

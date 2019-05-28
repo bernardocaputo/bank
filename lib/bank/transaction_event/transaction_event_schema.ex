@@ -3,6 +3,11 @@ defmodule Bank.TransactionEventSchema do
   import Ecto.Changeset
   alias Bank.BankAccountSchema
 
+  @type t :: %__MODULE__{
+          from_bank_account_id: integer(),
+          to_bank_account_id: integer()
+        }
+
   schema "transaction_events" do
     belongs_to(:from_bank_account, BankAccountSchema)
     belongs_to(:to_bank_account, BankAccountSchema)

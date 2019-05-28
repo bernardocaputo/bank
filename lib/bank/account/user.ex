@@ -3,6 +3,12 @@ defmodule Bank.Account.User do
   import Ecto.Changeset
   alias Bank.BankAccountSchema
 
+  @type t :: %__MODULE__{
+          name: String.t(),
+          email: String.t(),
+          password: String.t()
+        }
+
   schema "users" do
     field(:email, :string)
     field(:encrypted_password, :string)

@@ -3,6 +3,11 @@ defmodule Bank.CashOutEventSchema do
   import Ecto.Changeset
   alias Bank.BankAccountSchema
 
+  @type t :: %__MODULE__{
+          bank_account_id: integer(),
+          cash_out_amount: integer()
+        }
+
   schema "cash_out_events" do
     belongs_to(:bank_account, BankAccountSchema)
     field(:cash_out_amount, :integer)
