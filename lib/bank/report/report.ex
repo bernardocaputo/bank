@@ -4,6 +4,10 @@ defmodule Bank.Report do
   alias Bank.Exporter
   alias Bank.TransactionEventSchema
 
+  @doc """
+  Generates daily report
+  """
+  @spec daily_transaction_report() :: {:ok, String.t()}
   def daily_transaction_report() do
     result =
       from(
@@ -19,6 +23,10 @@ defmodule Bank.Report do
     parse_result(result, :day)
   end
 
+  @doc """
+  Generates monthly report
+  """
+  @spec monthly_transaction_report() :: {:ok, String.t()}
   def monthly_transaction_report() do
     result =
       from(
@@ -34,6 +42,10 @@ defmodule Bank.Report do
     parse_result(result, :month)
   end
 
+  @doc """
+  Generates yearly report
+  """
+  @spec yearly_transaction_report() :: {:ok, String.t()}
   def yearly_transaction_report() do
     result =
       from(
@@ -49,6 +61,10 @@ defmodule Bank.Report do
     parse_result(result, :year)
   end
 
+  @doc """
+  Generates all transactions report
+  """
+  @spec all_transactions_report() :: {:ok, String.t()}
   def all_transactions_report() do
     result =
       from(

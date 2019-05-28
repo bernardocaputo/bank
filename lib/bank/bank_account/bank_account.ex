@@ -1,9 +1,15 @@
 defmodule Bank.BankAccount do
   alias Bank.BankAccountSchema
   alias Bank.CashOutEvent
+  alias Bank.Account.User
   alias Bank.TransactionEvent
   alias Bank.Repo
 
+  @doc """
+  Creates a bank account
+  """
+  @spec open_bank_account(User.t()) ::
+          {:ok, BankAccountSchema.t()} | {:error, Ecto.Changeset.t(BankAccountSchema.t())}
   def open_bank_account(user) do
     changeset = BankAccountSchema.changeset(%{user_id: user.id})
 
@@ -12,6 +18,11 @@ defmodule Bank.BankAccount do
 
   def cash_out(_, value) when value <= 0, do: {:error, "value cannot be less than or equal to 0"}
 
+  @doc """
+  Cashes out from bank account
+  """
+  @spec cash_out(BankAccountSchema.t(), pos_integer()) ::
+          {:ok, BankAccountSchema.t()} | {:error, Ecto.Changeset.t(BankAccountSchema.t())}
   def cash_out(bank_account, value) do
     remaining_amount = bank_account.amount - value
 
@@ -42,6 +53,11 @@ defmodule Bank.BankAccount do
   def transfer_money(sender, receiver, _) when sender == receiver,
     do: {:error, "you cannot transfer money to yourself"}
 
+  @doc """
+  Transfers money to bank account
+  """
+  @spec transfer_money(BankAccountSchema.t(), BankAccountSchema.t(), pos_integer()) ::
+          {:ok, BankAccountSchema.t()} | {:error, Ecto.Changeset.t(BankAccountSchema.t())}
   def transfer_money(
         bank_account = %BankAccountSchema{amount: amount},
         bank_account_receiver = %BankAccountSchema{},

@@ -2,6 +2,11 @@ defmodule Bank.TransactionEvent do
   alias Bank.TransactionEventSchema
   alias Bank.Repo
 
+  @doc """
+  Creates a transaction event
+  """
+  @spec create_transaction_event(BankAccountSchema.t(), BankAccountSchema.t(), pos_integer()) ::
+          TransactionEventSchema.t()
   def create_transaction_event(from_bank_account, to_bank_account, transaction_amount) do
     changeset =
       TransactionEventSchema.changeset(%{
