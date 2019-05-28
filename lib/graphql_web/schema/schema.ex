@@ -3,6 +3,7 @@ defmodule GraphqlWeb.Schema do
   import_types(GraphqlWeb.Schema.Types)
   alias GraphqlWeb.Resolvers.UserResolver
   alias GraphqlWeb.Resolvers.BankAccountResolver
+  alias GraphqlWeb.Resolvers.ReportResolver
   alias Bank.Repo
 
   query do
@@ -14,6 +15,22 @@ defmodule GraphqlWeb.Schema do
   end
 
   mutation do
+    field :daily_transaction_report, type: :string do
+      resolve(&ReportResolver.daily_transaction_report/2)
+    end
+
+    field :monthly_transaction_report, type: :string do
+      resolve(&ReportResolver.monthly_transaction_report/2)
+    end
+
+    field :yearly_transaction_report, type: :string do
+      resolve(&ReportResolver.yearly_transaction_report/2)
+    end
+
+    field :all_transactions_report, type: :string do
+      resolve(&ReportResolver.all_transactions_report/2)
+    end
+
     field :create_user, type: :user do
       arg(:name, non_null(:string))
       arg(:email, non_null(:string))
