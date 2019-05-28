@@ -63,6 +63,7 @@ defmodule Bank.Report do
   end
 
   defp parse_result([], _), do: {:error, "no transactions found"}
+  defp parse_result([%{total: nil}], _), do: {:error, "no transactions found"}
 
   defp parse_result(result, type) do
     data =
