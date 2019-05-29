@@ -45,7 +45,13 @@ defmodule Bank.Account.User do
   defp validate_email(changeset, email) do
     case Regex.run(~r/^[A-Za-z0-9._%+-+']+@[A-Za-z0-9.-]+\.[A-Za-z]+$/, email) do
       nil ->
-        %{changeset | valid?: false, errors: "email not valid"}
+        %{
+          changeset
+          | valid?: false,
+            errors: [
+              {:email, {"email not valid", [format: "wrong"]}}
+            ]
+        }
 
       _ ->
         changeset

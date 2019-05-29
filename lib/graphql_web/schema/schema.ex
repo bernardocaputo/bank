@@ -39,8 +39,6 @@ defmodule GraphqlWeb.Schema do
     end
 
     field :create_user, type: :user do
-      middleware(RequireLoginMiddleware)
-
       arg(:name, non_null(:string))
       arg(:email, non_null(:string))
       arg(:password, non_null(:string))

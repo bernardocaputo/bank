@@ -20,19 +20,20 @@ defmodule BankWeb.ConnCase do
       # Import conveniences for testing with connections
       use Phoenix.ConnTest
       import BankWeb.Router.Helpers
+      import Bank.GraphqlHelper
 
       # The default endpoint for testing
       @endpoint BankWeb.Endpoint
     end
   end
 
-
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Bank.Repo)
+
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(Bank.Repo, {:shared, self()})
     end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
-
 end

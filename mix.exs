@@ -39,6 +39,7 @@ defmodule Bank.Mixfile do
       {:phoenix_ecto, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
+      {:mix_test_watch, "~> 0.3", only: :dev, runtime: false},
       {:cowboy, "~> 1.0"},
       {:csv, "~> 2.3"},
       {:plug_cowboy, "~> 1.0"},
