@@ -1,6 +1,5 @@
 defmodule Bank.AccountTest do
   use BankWeb.ConnCase
-  import Bank.GraphqlHelper
 
   @query """
   mutation createUser($name: String!, $password: String!, $email: String!) {
