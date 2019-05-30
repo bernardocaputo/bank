@@ -15,8 +15,8 @@ defmodule GraphqlWeb.Resolvers.BankAccountResolver do
   def transfer_money(%{receiver_user_id: receiver_user_id, value: value}, %{
         context: %{current_user: user}
       }) do
-    bank_account = Repo.get_by!(BankAccountSchema, %{user_id: user.id})
-    bank_account_receiver = Repo.get_by!(BankAccountSchema, %{user_id: receiver_user_id})
+    bank_account = Repo.get_by(BankAccountSchema, %{user_id: user.id})
+    bank_account_receiver = Repo.get_by(BankAccountSchema, %{user_id: receiver_user_id})
     BankAccount.transfer_money(bank_account, bank_account_receiver, value)
   end
 end
