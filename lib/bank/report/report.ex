@@ -1,5 +1,5 @@
 defmodule Bank.Report do
-  import Ecto.Query
+  import Ecto.Query, only: [from: 2]
   alias Bank.Repo
   alias Bank.Exporter
   alias Bank.TransactionEventSchema
