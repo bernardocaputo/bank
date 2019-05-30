@@ -21,6 +21,7 @@ defmodule BankWeb.ConnCase do
       use Phoenix.ConnTest
       import BankWeb.Router.Helpers
       import Bank.GraphqlHelper
+      import Bank.AuthenticationHelper
 
       # The default endpoint for testing
       @endpoint BankWeb.Endpoint

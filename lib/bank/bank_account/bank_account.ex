@@ -53,6 +53,11 @@ defmodule Bank.BankAccount do
   def transfer_money(sender, receiver, _) when sender == receiver,
     do: {:error, "you cannot transfer money to yourself"}
 
+  def transfer_money(nil, _, _),
+    do: {:error, "you do not have a bank account. Please open a Bank Account first"}
+
+  def transfer_money(_, nil, _), do: {:error, "Receiver does not have a bank account"}
+
   @doc """
   Transfers money to bank account
   """
