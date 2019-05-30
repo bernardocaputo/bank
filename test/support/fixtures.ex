@@ -7,7 +7,9 @@ defmodule Bank.Fixtures do
 
   def create_user() do
     random = 1..1_000_000 |> Enum.random()
-    encrypted_password = Comeonin.Bcrypt.hashpwsalt("password")
+
+    # hash for "password"
+    encrypted_password = "$2b$12$n1HA/.LKGJOT4nD5Lr77R.nDv1QJ/GflFYYMsNS7b9PbwX4ptrgQq"
 
     user =
       %User{email: "#{random}@email.com", encrypted_password: encrypted_password}
