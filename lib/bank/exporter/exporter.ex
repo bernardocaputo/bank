@@ -1,6 +1,6 @@
 defmodule Bank.Exporter do
   @doc """
-  Creates a bank account
+  Creates a csv report
   """
   @spec create_report(list(map()), String.t()) :: {:ok, String.t()}
   def create_report(data, file_name) do
