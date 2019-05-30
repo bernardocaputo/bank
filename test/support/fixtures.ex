@@ -7,8 +7,16 @@ defmodule Bank.Fixtures do
 
   def create_user() do
     random = 1..1_000_000 |> Enum.random()
-    user = %User{email: "#{random}@email.com"} |> Repo.insert!()
-    user_two = %User{email: "#email@#{random}.com"} |> Repo.insert!()
+    encrypted_password = Comeonin.Bcrypt.hashpwsalt("password")
+
+    user =
+      %User{email: "#{random}@email.com", encrypted_password: encrypted_password}
+      |> Repo.insert!()
+
+    user_two =
+      %User{email: "#email@#{random}.com", encrypted_password: encrypted_password}
+      |> Repo.insert!()
+
     {user, user_two}
   end
 
