@@ -1,60 +1,46 @@
 defmodule Bank.ReportTest do
   use BankWeb.ConnCase
   alias Bank.Fixtures
-  alias Bank.Report
-
-  describe "no report" do
-    test "when no data" do
-      assert {:error, "no transactions found"} == Report.daily_transaction_report()
-      assert {:error, "no transactions found"} == Report.monthly_transaction_report()
-      assert {:error, "no transactions found"} == Report.yearly_transaction_report()
-      assert {:error, "no transactions found"} == Report.all_transactions_report()
-    end
-  end
 
   describe "report" do
     test "daily report" do
-      {transaction, transaction2} = Fixtures.create_transactions()
+      two_days_ago = NaiveDateTime.utc_now() |> Timex.shift(days: -2)
+      yesterday = NaiveDateTime.utc_now() |> Timex.shift(days: -1)
 
-      [%{day: {{year, month, day}, _}, transaction_amount: amount}] =
-        Fixtures.daily_transaction_report()
+      {_transaction, _transaction2} = Fixtures.create_transactions(two_days_ago, yesterday)
 
-      %NaiveDateTime{year: nyear, month: nmonth, day: nday} = transaction.inserted_at
-      assert nyear == year
-      assert nmonth == month
-      assert nday == day
-      assert amount == transaction.transaction_amount + transaction2.transaction_amount
+      assert Fixtures.daily_transaction_report() |> is_list
+      # start_date = -4 days + today == 5 on fixtures function
+      assert Fixtures.daily_transaction_report() |> length == 5
     end
 
     test "monthly report" do
-      {transaction, transaction2} = Fixtures.create_transactions()
+      two_months_ago = NaiveDateTime.utc_now() |> Timex.shift(months: -2)
+      yesterday = NaiveDateTime.utc_now() |> Timex.shift(days: -1)
+      {_transaction, _transaction2} = Fixtures.create_transactions(two_months_ago, yesterday)
 
-      [%{month: {{year, month, _day}, _}, transaction_amount: amount}] =
-        Fixtures.monthly_transaction_report()
-
-      %NaiveDateTime{year: nyear, month: nmonth} = transaction.inserted_at
-      assert nyear == year
-      assert nmonth == month
-      assert amount == transaction.transaction_amount + transaction2.transaction_amount
+      assert Fixtures.monthly_transaction_report() |> is_list
+      # start_date = -2 months + this month == 3 on fixtures function
+      assert Fixtures.monthly_transaction_report() |> length == 3
     end
 
     test "yearly report" do
-      {transaction, transaction2} = Fixtures.create_transactions()
+      two_years_ago = NaiveDateTime.utc_now() |> Timex.shift(years: -1)
+      yesterday = NaiveDateTime.utc_now() |> Timex.shift(days: -1)
+      {_transaction, _transaction2} = Fixtures.create_transactions(two_years_ago, yesterday)
 
-      [%{year: {{year, _month, _day}, _}, transaction_amount: amount}] =
-        Fixtures.yearly_transaction_report()
-
-      %NaiveDateTime{year: nyear} = transaction.inserted_at
-      assert nyear == year
-      assert amount == transaction.transaction_amount + transaction2.transaction_amount
+      assert Fixtures.yearly_transaction_report() |> is_list
+      # start_date = -1 year ago + this year == 2 on fixtures function
+      assert Fixtures.yearly_transaction_report() |> length == 2
     end
 
     test "all transaction report" do
-      {transaction, transaction2} = Fixtures.create_transactions()
+      two_days_ago = NaiveDateTime.utc_now() |> Timex.shift(days: -2)
+      yesterday = NaiveDateTime.utc_now() |> Timex.shift(days: -1)
+      {_transaction, _transaction2} = Fixtures.create_transactions(two_days_ago, yesterday)
 
-      [%{total: amount}] = Fixtures.all_transactions_report()
-
-      assert amount == transaction.transaction_amount + transaction2.transaction_amount
+      assert Fixtures.all_transactions_report() |> is_list
+      assert Fixtures.all_transactions_report() |> length == 1
     end
   end
 end
