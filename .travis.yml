@@ -1,11 +1,20 @@
 sudo: required
+
+language: elixir
+elixir:
+  - '1.7.4'
+otp_release:
+  - '20.0'
 services:
   - docker
+  - postgresql
 
 before_install:
-  - docker-compose up --build
-
-script:
+  - mix local.hex --force
+  - mix local.rebar --force
+  - mix deps.get
   - MIX_ENV=test mix ecto.create
   - MIX_ENV=test mix ecto.migrate
-  - docker exec -it bank_web mix test
+
+script:
+  - mix test
