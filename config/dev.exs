@@ -42,5 +42,5 @@ config :bank, Bank.Repo,
   username: "postgres",
   password: "postgres",
   database: "bank_dev",
-  hostname: "localhost",
+  hostname: "postgres",
   pool_size: 10
