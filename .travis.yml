@@ -3,9 +3,9 @@ services:
   - docker
 
 before_install:
-  - docker build -t bernardocaputo/bank -f Dockerfile.dev .
+  - docker-compose up --build
 
 script:
   - MIX_ENV=test mix ecto.create
   - MIX_ENV=test mix ecto.migrate
-  - docker run -it bernardocaputo/bank mix test
+  - docker exec -it bank_web mix test
