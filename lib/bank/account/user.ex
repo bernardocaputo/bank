@@ -34,7 +34,7 @@ defmodule Bank.Account.User do
   defp put_password_hash(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: pass}} ->
-        put_change(changeset, :encrypted_password, Comeonin.Bcrypt.hashpwsalt(pass))
+        put_change(changeset, :encrypted_password, Bcrypt.hash_pwd_salt(pass))
 
       _ ->
         changeset
