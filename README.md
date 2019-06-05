@@ -32,7 +32,8 @@ Please set your header as following:
 
 After setting your header, you will be able to open your bank account:
 
-```mutation { openBankAccount() {
+```
+mutation { openBankAccount() {
                id
                amount
   }
