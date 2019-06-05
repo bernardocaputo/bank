@@ -35,8 +35,8 @@ After setting your header, you will be able to open your bank account:
 ```mutation { openBankAccount() {
                id
                amount
-              }
-            }
+  }
+}
 ```
  
 a Bank account will be created with a default amount of: 100000 cents (equal to 1000 BRL)
