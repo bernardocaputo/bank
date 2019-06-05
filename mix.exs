@@ -20,7 +20,14 @@ defmodule Bank.Mixfile do
   def application do
     [
       mod: {Bank.Application, []},
-      extra_applications: [:logger, :runtime_tools, :absinthe_plug, :timex, :csv, :jason]
+      extra_applications: [
+        :logger,
+        :runtime_tools,
+        :absinthe_plug,
+        :timex,
+        :csv,
+        :jason
+      ]
     ]
   end
 

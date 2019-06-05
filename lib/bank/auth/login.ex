@@ -6,7 +6,7 @@ defmodule Bank.Auth.Login do
     user = Repo.get_by(User, email: String.downcase(email))
 
     cond do
-      user && Bcrypt.verify_pass(given_pass, user.encrypted_password) ->
+      user && Comeonin.Bcrypt.checkpw(given_pass, user.encrypted_password) ->
         {:ok, user}
 
       user ->

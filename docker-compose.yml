@@ -9,6 +9,7 @@ services:
     volumes:
       - .:/app
       - /app/deps
+      -/app/_build
     depends_on:
       - postgres   
   postgres:
