@@ -47,8 +47,8 @@ defmodule Bank.Mixfile do
       {:absinthe_plug, "~> 1.4"},
       {:jason, "~> 1.1"},
       {:guardian, "~> 0.14"},
-      {:comeonin, "~> 5.1"},
-      {:bcrypt_elixir, "~> 2.0"}
+      {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 1.0"}
     ]
   end
 
