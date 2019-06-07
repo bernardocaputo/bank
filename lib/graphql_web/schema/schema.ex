@@ -70,7 +70,7 @@ defmodule GraphqlWeb.Schema do
       middleware(RequireLoginMiddleware)
 
       arg(:value, non_null(:integer))
-      arg(:receiver_user_id, non_null(:integer))
+      arg(:email_account, non_null(:string))
       resolve(handle_errors(&BankAccountResolver.transfer_money/2))
     end
   end
