@@ -60,7 +60,7 @@ You cannot cash out more than you currently have
 To transfer a value to your user, you need to use the transferMoney mutation as following:
 
 ```
-mutation {transferMoney(email_account: ID, value:VALUE)
+mutation {transferMoney(email_account: EMAIL, value:VALUE)
   {
     id
     amount
