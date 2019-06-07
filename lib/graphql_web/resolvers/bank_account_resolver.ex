@@ -1,6 +1,7 @@
 defmodule GraphqlWeb.Resolvers.BankAccountResolver do
   alias Bank.BankAccountSchema
   alias Bank.BankAccount
+  alias Bank.Account.User
   alias Bank.Repo
 
   def open_bank_account(_, %{context: %{current_user: user}}) do
@@ -12,11 +13,12 @@ defmodule GraphqlWeb.Resolvers.BankAccountResolver do
     BankAccount.cash_out(bank_account, value)
   end
 
-  def transfer_money(%{receiver_user_id: receiver_user_id, value: value}, %{
+  def transfer_money(%{email_account: email, value: value}, %{
         context: %{current_user: user}
       }) do
     bank_account = Repo.get_by(BankAccountSchema, %{user_id: user.id})
-    bank_account_receiver = Repo.get_by(BankAccountSchema, %{user_id: receiver_user_id})
+    receiver_user = Repo.get_by(User, %{email: email})
+    bank_account_receiver = Repo.get_by(BankAccountSchema, %{user_id: receiver_user.id})
     BankAccount.transfer_money(bank_account, bank_account_receiver, value)
   end
 end

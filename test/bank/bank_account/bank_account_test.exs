@@ -181,8 +181,8 @@ defmodule Bank.BankAccountTest do
   end
 
   @transfer_money_query """
-  mutation transferMoney($value: Int!, $receiver_user_id: Int!) {
-    transferMoney(value: $value, receiver_user_id: $receiver_user_id) {
+  mutation transferMoney($value: Int!, $email_account: String!) {
+    transferMoney(value: $value, email_account: $email_account) {
       id
       amount
       user_id
@@ -198,7 +198,7 @@ defmodule Bank.BankAccountTest do
         build_conn()
         |> graphql_query(
           query: @transfer_money_query,
-          variables: %{value: 0, receiver_user_id: user_with_bank_account2.user_id}
+          variables: %{value: 0, email_account: user_with_bank_account2.user.email}
         )
 
       [error] = response_one["errors"]
@@ -213,7 +213,7 @@ defmodule Bank.BankAccountTest do
         |> authenticate_user(user_with_bank_account.user)
         |> graphql_query(
           query: @transfer_money_query,
-          variables: %{value: 0, receiver_user_id: user_with_bank_account2.user_id}
+          variables: %{value: 0, email_account: user_with_bank_account2.user.email}
         )
 
       [error] = response_one["errors"]
@@ -224,7 +224,7 @@ defmodule Bank.BankAccountTest do
         |> authenticate_user(user_with_bank_account.user)
         |> graphql_query(
           query: @transfer_money_query,
-          variables: %{value: -10, receiver_user_id: user_with_bank_account2.user_id}
+          variables: %{value: -10, email_account: user_with_bank_account2.user.email}
         )
 
       [error_one] = response_one["errors"]
@@ -247,7 +247,7 @@ defmodule Bank.BankAccountTest do
         |> authenticate_user(user_with_bank_account.user)
         |> graphql_query(
           query: @transfer_money_query,
-          variables: %{value: 100_001, receiver_user_id: user_with_bank_account2.user.id}
+          variables: %{value: 100_001, email_account: user_with_bank_account2.user.email}
         )
 
       [error] = response["errors"]
@@ -269,7 +269,7 @@ defmodule Bank.BankAccountTest do
         |> authenticate_user(user_with_bank_account.user)
         |> graphql_query(
           query: @transfer_money_query,
-          variables: %{value: 100_001, receiver_user_id: user_with_bank_account.user.id}
+          variables: %{value: 100_001, email_account: user_with_bank_account.user.email}
         )
 
       [error] = response["errors"]
@@ -290,7 +290,7 @@ defmodule Bank.BankAccountTest do
         |> authenticate_user(user)
         |> graphql_query(
           query: @transfer_money_query,
-          variables: %{value: 100_001, receiver_user_id: user_with_bank_account.user.id}
+          variables: %{value: 100_001, email_account: user_with_bank_account.user.email}
         )
 
       [error] = response["errors"]
@@ -314,7 +314,7 @@ defmodule Bank.BankAccountTest do
         |> authenticate_user(user_with_bank_account.user)
         |> graphql_query(
           query: @transfer_money_query,
-          variables: %{value: 50000, receiver_user_id: user.id}
+          variables: %{value: 50000, email_account: user.email}
         )
 
       [error] = response["errors"]
@@ -339,7 +339,7 @@ defmodule Bank.BankAccountTest do
         |> authenticate_user(user_with_bank_account.user)
         |> graphql_query(
           query: @transfer_money_query,
-          variables: %{value: 60000, receiver_user_id: user_with_bank_account2.user.id}
+          variables: %{value: 60000, email_account: user_with_bank_account2.user.email}
         )
 
       assert response["data"]["transferMoney"]["amount"] == 40000
@@ -365,7 +365,7 @@ defmodule Bank.BankAccountTest do
         |> authenticate_user(user_with_bank_account.user)
         |> graphql_query(
           query: @transfer_money_query,
-          variables: %{value: 100_000, receiver_user_id: user_with_bank_account2.user.id}
+          variables: %{value: 100_000, email_account: user_with_bank_account2.user.email}
         )
 
       assert response["data"]["transferMoney"]["amount"] == 0

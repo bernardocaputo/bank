@@ -6,8 +6,10 @@ RUN mix local.hex --force
 
 RUN mix local.rebar --force
 
-COPY . .
+COPY mix.exs .
 
 RUN mix deps.get
+
+COPY . .
 
 CMD ["iex", "-S", "mix", "phx.server"]
