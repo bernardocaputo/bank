@@ -71,4 +71,4 @@ config :bank, Bank.Repo,
   hostname: System.get_env("DB_HOST"),
   pool_size: 10
 
-import_config "prod.secret.exs"
+# import_config "prod.secret.exs"
