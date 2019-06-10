@@ -6,17 +6,19 @@ services:
       dockerfile: Dockerfile.dev
     ports: 
       - 4000:4000
+    expose:
+      - "80"
     volumes:
       - .:/app
       - /app/deps
       - /app/_build
     depends_on:
-      - postgres  
+      - postgres   
     environment:
       - DB_USERNAME=postgres
       - DB_PASSWORD=postgres
-      - DB_NAME=bank_dev
-      - DB_HOSTNAME=postgres 
+      - DB_NAME=bank_prod
+      - DB_HOSTNAME=postgres
   postgres:
     image: postgres:10
     restart: always
@@ -24,6 +26,12 @@ services:
       - db-data:/var/lib/postgresql/data
     ports:
       - 5432:5432
+  web:
+    build: .
+    links:
+      - app
+    ports:
+      - "80:80"
 volumes: 
   db-data:
     driver: local
