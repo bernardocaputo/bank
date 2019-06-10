@@ -16,7 +16,6 @@ services:
       DB_USERNAME: postgres
       DB_PASSWORD: postgres
       DB_NAME: bank_dev
-      DB_HOSTNAME: postgres 
   postgres:
     image: postgres:10
     restart: always
