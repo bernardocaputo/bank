@@ -135,7 +135,7 @@ docker-compose up
 ```
 
 ## Running the tests
-The following code inside mix.exs makess it easier for running tests:
+The following code inside mix.exs makes it easier for running tests:
 ```
   defp aliases do
     [
@@ -164,5 +164,16 @@ docker-compose run web mix test
 
 ## Deployment
 
-SOON
-
+In your host machine, run the following commands:
+```
+docker-compose -f docker-compose-prod.yml build
+```
+```
+docker-compose -f docker-compose-prod.yml run app mix ecto.create
+```
+```
+docker-compose -f docker-compose-prod.yml run app mix ecto.migrate
+```
+```
+docker-compose -f docker-compose-prod.yml up -d
+```
