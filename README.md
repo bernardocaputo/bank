@@ -8,6 +8,8 @@ After running your project in your local machine, you need to access the GraphQL
 
 ```http://localhost:4000/graphiql```
 
+`make sure the field URL on GraphQL dashboard is http://localhost:4000/graphql`
+
 ### Creating a user
 
 To get started, you will need first to create a user:
@@ -177,3 +179,7 @@ docker-compose -f docker-compose-prod.yml run app mix ecto.migrate
 ```
 docker-compose -f docker-compose-prod.yml up -d
 ```
+
+then access the GraphQL endpoint: http://host-machine-ip/graphiql
+
+`make sure the field URL on GraphQL dashboard is http://host-machine-ip/graphql`
