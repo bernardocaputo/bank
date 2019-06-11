@@ -30,6 +30,12 @@ Please set your header as following:
 
 `Insert only the letters. Leave the quote marks out (") from header value`
 
+`In order to find users easier to transfer money, There is a query which show all users` 
+
+```
+query { users{id name email}}
+```
+
 ### Openning a Bank Account
 
 After setting your header, you will be able to open your bank account:
