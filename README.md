@@ -133,10 +133,10 @@ download docker at: ```https://www.docker.com/get-started```
 docker-compose build
 ```
 ```
-docker-compose run web mix ecto.create
+docker-compose run --rm app mix ecto.create
 ```
 ```
-docker-compose run web mix ecto.migrate 
+docker-compose run --rm app mix ecto.migrate 
 ```
 ```
 docker-compose up
@@ -164,7 +164,7 @@ mix test
 ### Running test using docker 
 Run:
 ```
-docker-compose run web mix test 
+docker-compose run --rm app mix test 
 ```
 
 `make sure your test.exs file is pointing database hostname to postgres`
@@ -177,10 +177,10 @@ In your host machine, run the following commands:
 docker-compose -f docker-compose-prod.yml build
 ```
 ```
-docker-compose -f docker-compose-prod.yml run app mix ecto.create
+docker-compose -f docker-compose-prod.yml run --rm app mix ecto.create
 ```
 ```
-docker-compose -f docker-compose-prod.yml run app mix ecto.migrate
+docker-compose -f docker-compose-prod.yml run --rm app mix ecto.migrate
 ```
 ```
 docker-compose -f docker-compose-prod.yml up -d
