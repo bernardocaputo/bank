@@ -49,6 +49,7 @@ defmodule Bank.Mixfile do
       {:mix_test_watch, "~> 0.3", only: :dev, runtime: false},
       {:cowboy, "~> 1.0"},
       {:csv, "~> 2.3"},
+      {:distillery, "~> 2.0"},
       {:plug_cowboy, "~> 1.0"},
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
