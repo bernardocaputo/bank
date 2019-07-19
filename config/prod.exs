@@ -64,17 +64,25 @@ config :logger, level: :info
 # which should be versioned separately.
 config :bank, BankWeb.Endpoint,
   http: [port: 4000],
-  debug_errors: true,
-  code_reloader: true,
+  debug_errors: false,
+  code_reloader: false,
   check_origin: false,
   watchers: []
 
+# config :bank, Bank.Repo,
+#   adapter: Ecto.Adapters.Postgres,
+#   username: System.get_env("DB_USERNAME"),
+#   password: System.get_env("DB_PASSWORD"),
+#   database: System.get_env("DB_NAME"),
+#   hostname: "postgres",
+#   pool_size: 10
+
 config :bank, Bank.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: System.get_env("DB_USERNAME"),
-  password: System.get_env("DB_PASSWORD"),
-  database: System.get_env("DB_NAME"),
-  hostname: "postgres",
+  username: "postgres",
+  password: "postgres",
+  database: "bank_dev",
+  hostname: "localhost",
   pool_size: 10
 
 # import_config "prod.secret.exs"
