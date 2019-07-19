@@ -12,6 +12,7 @@ config :bank,
 # Configures the endpoint
 config :bank, BankWeb.Endpoint,
   url: [host: "localhost"],
+  server: true,
   secret_key_base: "2J+Ts/AFYDWEohndl7NPpRuV047edkrXL2zKa9KFfAG3D10LCPxhv4c/6S7l3qbJ",
   render_errors: [view: BankWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: Bank.PubSub, adapter: Phoenix.PubSub.PG2]
