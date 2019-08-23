@@ -26,6 +26,8 @@ config :logger, :console,
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
 
+config :phoenix, :json_library, Jason
+
 config :guardian, Guardian,
   issuer: "bank",
   ttl: {1, :days},
