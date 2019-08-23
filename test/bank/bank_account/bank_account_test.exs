@@ -66,7 +66,9 @@ defmodule Bank.BankAccountTest do
         )
 
       [error] = response["errors"]
-      assert error["message"] == "user_id: has already been taken"
+
+      assert error["message"] ==
+               "user_id has already been taken | constraint_name value: bank_accounts_user_id_index"
     end
   end
 

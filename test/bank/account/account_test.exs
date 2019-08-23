@@ -69,7 +69,8 @@ defmodule Bank.AccountTest do
       assert response["errors"] == [
                %{
                  "locations" => [%{"column" => 0, "line" => 2}],
-                 "message" => "name should be at least %{count} character(s) | min value: 3",
+                 "message" =>
+                   "name should be at least %{count} character(s) | type value: string",
                  "path" => ["createUser"]
                }
              ]
@@ -92,7 +93,8 @@ defmodule Bank.AccountTest do
       assert response["errors"] == [
                %{
                  "locations" => [%{"column" => 0, "line" => 2}],
-                 "message" => "password should be at least %{count} character(s) | min value: 5",
+                 "message" =>
+                   "password should be at least %{count} character(s) | type value: string",
                  "path" => ["createUser"]
                }
              ]
