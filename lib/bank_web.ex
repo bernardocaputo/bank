@@ -21,7 +21,7 @@ defmodule BankWeb do
     quote do
       use Phoenix.Controller, namespace: BankWeb
       import Plug.Conn
-      import BankWeb.Router.Helpers
+      alias TeacherWeb.Router.Helpers, as: Routes
       import BankWeb.Gettext
     end
   end
@@ -34,8 +34,7 @@ defmodule BankWeb do
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 2, view_module: 1]
-
-      import BankWeb.Router.Helpers
+      alias TeacherWeb.Router.Helpers, as: Routes
       import BankWeb.ErrorHelpers
       import BankWeb.Gettext
     end

@@ -40,23 +40,25 @@ defmodule Bank.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3.0"},
+      {:phoenix, "~> 1.4.9"},
       {:timex, "~> 3.5"},
       {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 3.2"},
+      {:ecto_sql, "~> 3.1"},
+      {:phoenix_ecto, "~> 4.0"},
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
       {:mix_test_watch, "~> 0.3", only: :dev, runtime: false},
-      {:cowboy, "~> 1.0"},
+      {:cowboy, "~> 2.0"},
       {:csv, "~> 2.3"},
       {:distillery, "~> 2.0"},
-      {:plug_cowboy, "~> 1.0"},
+      {:plug_cowboy, "~> 2.0"},
+      {:jason, "~> 1.0"},
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},
-      {:jason, "~> 1.1"},
       {:guardian, "~> 0.14"},
       {:comeonin, "~> 4.0"},
-      {:bcrypt_elixir, "~> 1.0"}
+      {:bcrypt_elixir, "~> 1.0"},
+      {:plug, "~> 1.7"}
     ]
   end
 
