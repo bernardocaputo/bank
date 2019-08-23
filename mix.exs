@@ -40,10 +40,10 @@ defmodule Bank.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.4.0"},
+      {:phoenix, "~> 1.4.9"},
       {:timex, "~> 3.5"},
       {:phoenix_pubsub, "~> 1.0"},
-      {:ecto_sql, "~> 3.0"},
+      {:ecto_sql, "~> 3.1"},
       {:phoenix_ecto, "~> 4.0"},
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
