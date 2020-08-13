@@ -1,4 +1,6 @@
 defmodule GraphqlWeb.Resolvers.BankAccountResolver do
+  @moduledoc false
+
   alias Bank.BankAccountSchema
   alias Bank.BankAccount
   alias Bank.Account.User

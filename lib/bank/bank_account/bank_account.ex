@@ -1,4 +1,6 @@
 defmodule Bank.BankAccount do
+  @moduledoc false
+
   alias Bank.BankAccountSchema
   alias Bank.CashOutEvent
   alias Bank.Account.User
@@ -64,8 +66,8 @@ defmodule Bank.BankAccount do
   @spec transfer_money(BankAccountSchema.t(), BankAccountSchema.t(), pos_integer()) ::
           {:ok, BankAccountSchema.t()} | {:error, Ecto.Changeset.t(BankAccountSchema.t())}
   def transfer_money(
-        bank_account = %BankAccountSchema{amount: amount},
-        bank_account_receiver = %BankAccountSchema{},
+        %BankAccountSchema{amount: amount} = bank_account,
+        %BankAccountSchema{} = bank_account_receiver,
         value
       ) do
     remaining_amount = amount - value
@@ -81,7 +83,7 @@ defmodule Bank.BankAccount do
 
   def _transfer_money(
         changeset,
-        bank_account_receiver = %BankAccountSchema{amount: amount},
+        %BankAccountSchema{amount: amount} = bank_account_receiver,
         value
       ) do
     new_amount = amount + value

@@ -1,4 +1,6 @@
 defmodule Bank.Auth.Login do
+  @moduledoc false
+
   alias Bank.Repo
   alias Bank.Account.User
 

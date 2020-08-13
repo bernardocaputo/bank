@@ -52,6 +52,7 @@ defmodule Bank.Mixfile do
       {:csv, "~> 2.3"},
       {:distillery, "~> 2.0"},
       {:plug_cowboy, "~> 2.0"},
+      {:credo, "~> 1.1", only: [:dev, :test], runtime: false},
       {:jason, "~> 1.0"},
       {:absinthe, "~> 1.4"},
       {:absinthe_plug, "~> 1.4"},

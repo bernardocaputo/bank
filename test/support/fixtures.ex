@@ -1,4 +1,6 @@
 defmodule Bank.Fixtures do
+  @moduledoc false
+
   import Ecto.Query, only: [from: 2]
   alias Bank.Account.User
   alias Bank.BankAccount

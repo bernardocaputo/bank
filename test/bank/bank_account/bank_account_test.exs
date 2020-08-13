@@ -151,16 +151,16 @@ defmodule Bank.BankAccountTest do
         |> authenticate_user(user_with_bank_account.user)
         |> graphql_query(
           query: @cash_out_query,
-          variables: %{value: 50000}
+          variables: %{value: 50_000}
         )
 
-      assert response["data"]["cashOut"]["amount"] == 50000
+      assert response["data"]["cashOut"]["amount"] == 50_000
       assert response["data"]["cashOut"]["user_id"] == user_with_bank_account.user.id
 
       cash_out_event =
         Repo.get_by(CashOutEventSchema, %{bank_account_id: user_with_bank_account.id})
 
-      assert cash_out_event.cash_out_amount == 50000
+      assert cash_out_event.cash_out_amount == 50_000
     end
 
     test "when value equal to amount", %{user_with_bank_account: {user_with_bank_account, _}} do
@@ -316,7 +316,7 @@ defmodule Bank.BankAccountTest do
         |> authenticate_user(user_with_bank_account.user)
         |> graphql_query(
           query: @transfer_money_query,
-          variables: %{value: 50000, email_account: user.email}
+          variables: %{value: 50_000, email_account: user.email}
         )
 
       [error] = response["errors"]
@@ -341,10 +341,10 @@ defmodule Bank.BankAccountTest do
         |> authenticate_user(user_with_bank_account.user)
         |> graphql_query(
           query: @transfer_money_query,
-          variables: %{value: 60000, email_account: user_with_bank_account2.user.email}
+          variables: %{value: 60_000, email_account: user_with_bank_account2.user.email}
         )
 
-      assert response["data"]["transferMoney"]["amount"] == 40000
+      assert response["data"]["transferMoney"]["amount"] == 40_000
       assert response["data"]["transferMoney"]["user_id"] == user_with_bank_account.user.id
 
       transaction_event =
@@ -356,7 +356,7 @@ defmodule Bank.BankAccountTest do
       ba2 = Repo.get_by(BankAccountSchema, %{user_id: user_with_bank_account2.user.id})
       assert ba2.amount == 160_000
 
-      assert transaction_event.transaction_amount == 60000
+      assert transaction_event.transaction_amount == 60_000
     end
 
     test "when value is equal to amount", %{

@@ -1,4 +1,6 @@
 defmodule GraphqlWeb.RequireLoginMiddleware do
+  @moduledoc false
+
   @behaviour Absinthe.Middleware
 
   alias Absinthe.Resolution

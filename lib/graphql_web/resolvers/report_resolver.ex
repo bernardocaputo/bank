@@ -1,4 +1,6 @@
 defmodule GraphqlWeb.Resolvers.ReportResolver do
+  @moduledoc false
+
   alias Bank.Report
 
   def daily_transaction_report(_, %{context: %{current_user: _user}}) do

@@ -1,4 +1,6 @@
 defmodule Bank.CashOutEvent do
+  @moduledoc false
+
   alias Bank.CashOutEventSchema
   alias Bank.BankAccountSchema
   alias Bank.Repo

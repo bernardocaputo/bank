@@ -1,4 +1,6 @@
 defmodule Bank.GraphqlHelper do
+  @moduledoc false
+
   use Phoenix.ConnTest
 
   @endpoint BankWeb.Endpoint

@@ -1,4 +1,6 @@
 defmodule GraphqlWeb.Schema do
+  @moduledoc false
+
   use Absinthe.Schema
   import_types(GraphqlWeb.Schema.Types)
   alias GraphqlWeb.Resolvers.UserResolver

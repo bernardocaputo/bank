@@ -1,4 +1,6 @@
 defmodule Bank.Auth.Context do
+  @moduledoc false
+
   @behaviour Plug
   import Plug.Conn
 

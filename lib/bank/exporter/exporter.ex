@@ -1,4 +1,6 @@
 defmodule Bank.Exporter do
+  @moduledoc false
+
   @doc """
   Creates a csv report
   """

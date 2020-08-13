@@ -1,4 +1,6 @@
 defmodule Bank.Report do
+  @moduledoc false
+
   import Ecto.Query, only: [from: 2]
   alias Bank.Repo
   alias Bank.Exporter

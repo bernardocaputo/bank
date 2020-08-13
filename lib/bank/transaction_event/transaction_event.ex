@@ -1,4 +1,6 @@
 defmodule Bank.TransactionEvent do
+  @moduledoc false
+
   alias Bank.TransactionEventSchema
   alias Bank.Repo
 
