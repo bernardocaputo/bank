@@ -1,0 +1,26 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports: 
+      - 4000:4000
+    volumes:
+      - .:/app
+      - /app/deps
+      - /app/_build
+    depends_on:
+      - postgres  
+    environment:
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: bank_dev
+  postgres:
+    image: postgres:10
+    restart: always
+    volumes: 
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+volumes: 
+  db-data:
+    driver: local
